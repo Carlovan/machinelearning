@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MachineLearning
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WindowGraphic2D.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WindowGraphic2D : Window
     {
-        public MainWindow()
+        public WindowGraphic2D()
         {
             InitializeComponent();
-        }
-
-        private void btnStart2D_Click(object sender, RoutedEventArgs e)
-        {
-            var tmp = new WindowGraphic2D();
-            tmp.ShowActivated = true;
-            this.Close();
-            tmp.Show();
         }
     }
 }
