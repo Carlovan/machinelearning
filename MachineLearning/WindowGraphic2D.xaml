@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MachineLearning"
         mc:Ignorable="d"
-        Title="2 Dimensions" Height="300" Width="300">
+        Title="2 Dimensions" Height="500" Width="700" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="60*" />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Name="dtgCentroids" AutoGenerateColumns="False" SelectionMode="Single" Grid.Column="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="X" Binding="{Binding X}" Width="*" />
+                <DataGridTextColumn Header="Y" Binding="{Binding Y}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border BorderThickness="1" BorderBrush="Black" Margin="15" Grid.Column="1">
+            <Canvas Name="cnvDrawArea" MouseLeftButtonDown="cnvDrawArea_MouseDown" Background="White" SizeChanged="cnvDrawArea_SizeChanged" />
+        </Border>
     </Grid>
 </Window>

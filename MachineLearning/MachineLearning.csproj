@@ -55,6 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Centroid.cs" />
+    <Compile Include="DataPoint.cs" />
+    <Compile Include="KMeansHandler.cs" />
+    <Compile Include="UIPoint.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="WindowGraphic2D.xaml.cs">
       <DependentUpon>WindowGraphic2D.xaml</DependentUpon>
     </Compile>
