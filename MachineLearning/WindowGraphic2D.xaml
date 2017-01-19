@@ -35,7 +35,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <DataGrid Name="dtgPoints" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ItemsSource="{Binding ElementName=dtgCentroids, Path=SelectedItem}">
+                <DataGrid Name="dtgPoints" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ItemsSource="{Binding ElementName=dtgCentroids, Path=SelectedItem.Points}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="X" Binding="{Binding Dimensions[0]}" Width="*" />
                         <DataGridTextColumn Header="Y" Binding="{Binding Dimensions[1]}" Width="*" />

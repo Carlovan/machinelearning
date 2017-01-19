@@ -74,6 +74,7 @@ namespace MachineLearning
             {
                 EnableButtons(false);
                 handler.InitializeCentroids(5);
+                dtgCentroids.Items.Refresh();
                 ((Button)sender).Content = "Stop";
                 handler.DrawOnCanvas(cnvDrawArea, true);
                 timer.Tick += Timer_Tick;
