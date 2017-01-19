@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace MachineLearning
 {
@@ -14,7 +15,7 @@ namespace MachineLearning
     /// </summary>
     public partial class WindowGraphic2D : Window
     {
-        const int STEP_DELAY = 500;
+        const int STEP_DELAY = 2000;
 
         KMeansHandler handler;
         DispatcherTimer timer = new DispatcherTimer();
@@ -27,7 +28,7 @@ namespace MachineLearning
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             handler = new KMeansHandler();
-            dtgCentroids.ItemsSource = handler.Points;
+            dtgCentroids.DataContext = handler;
         }
 
         private void cnvDrawArea_MouseDown(object sender, MouseButtonEventArgs e)
@@ -35,8 +36,8 @@ namespace MachineLearning
             if (!timer.IsEnabled)
             {
                 Point pos = e.GetPosition((Canvas)sender);
-                DataPoint tmp = new DataPoint() { X = pos.X, Y = pos.Y };
-                tmp.PropertyChanged += (object s, PropertyChangedEventArgs events) => { handler.DrawOnCanvas(cnvDrawArea, false); };
+                DataPoint tmp = new DataPoint(pos);
+                tmp.Dimensions.CollectionChanged += (object s, NotifyCollectionChangedEventArgs events) => { handler.DrawOnCanvas(cnvDrawArea, false); };
                 handler.Points.Add(tmp);
                 handler.DrawOnCanvas((Canvas)sender, false);
                 dtgCentroids.Items.Refresh();
@@ -103,6 +104,11 @@ namespace MachineLearning
             handler.Points.Clear();
             handler.Centroids.Clear();
             handler.DrawOnCanvas(cnvDrawArea, false);
+        }
+
+        private void btnStep_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteStep();
         }
     }
 }

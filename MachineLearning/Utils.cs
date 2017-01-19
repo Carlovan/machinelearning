@@ -32,8 +32,8 @@ namespace MachineLearning
         {
             Ellipse ell = new Ellipse() { Width = 10, Height = 10 };
             ell.Fill = new SolidColorBrush(new Color() { R = 44, G = 44, B = 44, A = 255 });
-            Canvas.SetLeft(ell, pos.X - ell.Width / 2);
-            Canvas.SetTop(ell, pos.Y - ell.Height / 2);
+            Canvas.SetLeft(ell, pos.Dimensions[0] - ell.Width / 2);
+            Canvas.SetTop(ell, pos.Dimensions[1] - ell.Height / 2);
             canvas.Children.Add(ell);
         }
 
@@ -41,8 +41,8 @@ namespace MachineLearning
         {
             Rectangle rect = new Rectangle() { Width = 10, Height = 10 };
             rect.Fill = new SolidColorBrush(new Color() { R = 100, G = 44, B = 44, A = 255 });
-            Canvas.SetLeft(rect, pos.X - rect.Width / 2);
-            Canvas.SetTop(rect, pos.Y - rect.Height / 2);
+            Canvas.SetLeft(rect, pos.Dimensions[0] - rect.Width / 2);
+            Canvas.SetTop(rect, pos.Dimensions[1] - rect.Height / 2);
             canvas.Children.Add(rect);
         }
     }

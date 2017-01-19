@@ -17,10 +17,11 @@ namespace MachineLearning
         public void InitializeCentroids(uint count)
         {
             Random rand = new Random();
+            Centroids.Clear();
             for (uint i = 0; i < count; i++)
             {
                 UIPoint tmp = Points[rand.Next(Points.Count)];
-                Centroids.Add(new Centroid() { X = tmp.X, Y = tmp.Y });
+                Centroids.Add(new Centroid(tmp));
             }
         }
 
@@ -45,8 +46,10 @@ namespace MachineLearning
             {
                 if (c.Points.Count > 0)
                 {
-                    c.X = c.Points.Average((p) => p.X);
-                    c.Y = c.Points.Average((p) => p.Y);
+                    for(int i = 0; i < c.Dimensions.Count; i++)
+                    {
+                        c.Dimensions[i] = c.Points.Average(p => p.Dimensions[i]);
+                    }
                 }
             }
         }
@@ -63,6 +66,13 @@ namespace MachineLearning
                 foreach (Centroid centroid in Centroids)
                 {
                     canvas.DrawPoint(centroid);
+                    foreach(DataPoint p in centroid.Points)
+                    {
+                        Line l = new Line() { X1 = p.Dimensions[0], Y1 = p.Dimensions[1], X2 = centroid.Dimensions[0], Y2 = centroid.Dimensions[1] };
+                        l.Stroke = new SolidColorBrush(new Color() { A = 255, R = 0, G = 0, B = 0 });
+                        l.StrokeThickness = 1;
+                        canvas.Children.Add(l);
+                    }
                 }
             }
         }
