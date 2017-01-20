@@ -44,24 +44,6 @@ namespace MachineLearning
             }
         }
 
-        private void cnvDrawArea_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            /*if (handler != null)
-            {
-                foreach (DataPoint point in handler.Points)
-                {
-                    point.X = point.X * e.NewSize.Width / e.PreviousSize.Width;
-                    point.Y = point.Y * e.NewSize.Height / e.PreviousSize.Height;
-                }
-                foreach (Centroid point in handler.Centroids)
-                {
-                    point.X = point.X * e.NewSize.Width / e.PreviousSize.Width;
-                    point.Y = point.Y * e.NewSize.Height / e.PreviousSize.Height;
-                }
-                handler.DrawOnCanvas(cnvDrawArea, timer.IsEnabled);
-            }*/
-        }
-
         private void btnRun_Click(object sender, RoutedEventArgs e)
         {
             if (timer.IsEnabled)
@@ -90,7 +72,7 @@ namespace MachineLearning
 
         private void EnableButtons(bool enabled)
         {
-            //btnClear.IsEnabled = enabled;
+            btnClear.IsEnabled = enabled;
         }
 
         private void ExecuteStep()
