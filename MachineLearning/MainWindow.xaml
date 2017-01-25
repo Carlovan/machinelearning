@@ -10,6 +10,7 @@
         <StackPanel VerticalAlignment="Center">
             <Button Name="btnStart2D" Content="Start Graphic Kmeans (2D)" Padding="15" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStart2D_Click"/>
             <Button Name="btnStartKmeansMulti" Content="Start Kmeans Multidimensional" Margin="10" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStartKmeansMulti_Click"/>
+            <Button Name="btnStartKnnMulti" Content="Start Knn Multidimensional" Margin="10" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStartKnnMulti_Click"/>
         </StackPanel>
     </Grid>
 </Window>
