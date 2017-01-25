@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -145,6 +146,17 @@ namespace MachineLearning
         private void dtgPoints_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             handler.DrawOnCanvas(cnvDrawArea, false);
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "File XML|*.xml|Tutti i file|*.*";
+            sfd.DefaultExt = ".xml";
+            if ((bool)sfd.ShowDialog())
+            {
+                handler.SerializeToFile(sfd.FileName);
+            }
         }
     }
 }

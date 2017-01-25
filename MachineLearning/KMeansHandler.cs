@@ -7,13 +7,30 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.IO;
+using System.Xml;
 
 namespace MachineLearning
 {
+    [DataContract(Name = "KMeans")]
     class KMeansHandler
     {
         public ObservableCollection<DataPoint> Points { get; set; } = new ObservableCollection<DataPoint>();
+
+        [DataMember(Name = "Centroids")]
         public ObservableCollection<Centroid> Centroids { get; set; } = new ObservableCollection<Centroid>();
+
+        public void SerializeToFile(string filename)
+        {
+            using (FileStream saveStream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (XmlWriter writer = XmlWriter.Create(saveStream, new XmlWriterSettings() { Indent = true }))
+            {
+                DataContractSerializer dcser = new DataContractSerializer(typeof(KMeansHandler));
+                dcser.WriteObject(writer, this);
+            }
+        }
 
         public void InitializeCentroids(uint count)
         {

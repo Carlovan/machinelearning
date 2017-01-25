@@ -7,11 +7,14 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Runtime.Serialization;
 
 namespace MachineLearning
 {
+    [DataContract]
     class UIPoint
     {
+        [DataMember(Name = "Dimensions")]
         public ObservableCollection<double> Dimensions { get; set; }
 
         public UIPoint(int dimensions=2)
