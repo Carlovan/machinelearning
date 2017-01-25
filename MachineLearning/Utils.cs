@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Xml;
+using System.IO;
+using Microsoft.Win32;
+using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,5 +50,26 @@ namespace MachineLearning
             Canvas.SetTop(rect, pos.Dimensions[1] - rect.Height / 2);
             canvas.Children.Add(rect);
         }
+
+        static public KMeansHandler DeserializeKmeans(string filename)
+        {
+            using (FileStream openStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.None))
+            using (XmlReader reader = XmlReader.Create(openStream))
+            {
+                DataContractSerializer dcser = new DataContractSerializer(typeof(KMeansHandler));
+                return (KMeansHandler)dcser.ReadObject(reader);
+            }
+        }
+
+        static public void SerializeKmeans(string filename, KMeansHandler handler)
+        {
+            using (FileStream saveStream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (XmlWriter writer = XmlWriter.Create(saveStream, new XmlWriterSettings() { Indent = true }))
+            {
+                DataContractSerializer dcser = new DataContractSerializer(typeof(KMeansHandler));
+                dcser.WriteObject(writer, handler);
+            }
+        }
+
     }
 }

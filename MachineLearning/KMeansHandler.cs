@@ -17,20 +17,11 @@ namespace MachineLearning
     [DataContract(Name = "KMeans")]
     class KMeansHandler
     {
+        [DataMember(Name = "Points")]
         public ObservableCollection<DataPoint> Points { get; set; } = new ObservableCollection<DataPoint>();
 
         [DataMember(Name = "Centroids")]
         public ObservableCollection<Centroid> Centroids { get; set; } = new ObservableCollection<Centroid>();
-
-        public void SerializeToFile(string filename)
-        {
-            using (FileStream saveStream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None))
-            using (XmlWriter writer = XmlWriter.Create(saveStream, new XmlWriterSettings() { Indent = true }))
-            {
-                DataContractSerializer dcser = new DataContractSerializer(typeof(KMeansHandler));
-                dcser.WriteObject(writer, this);
-            }
-        }
 
         public void InitializeCentroids(uint count)
         {

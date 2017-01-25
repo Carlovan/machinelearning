@@ -18,6 +18,7 @@
             <Button Name="btnClear" Content="Clear all" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClear_Click"/>
             <Button Name="btnClearCentroids" Content="Clear centroids" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClearCentroids_Click"/>
             <Button Name="btnSave" Content="Save" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnSave_Click"/>
+            <Button Name="btnLoad" Content="Load" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnLoad_Click"/>
             <GroupBox Header="Num Centroidi">
                 <StackPanel Orientation="Vertical">
                     <Label Content="{Binding ElementName=sldNumCentroids, Path=Value}" HorizontalAlignment="Stretch" Margin="10" />

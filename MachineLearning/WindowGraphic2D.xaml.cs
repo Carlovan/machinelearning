@@ -155,7 +155,21 @@ namespace MachineLearning
             sfd.DefaultExt = ".xml";
             if ((bool)sfd.ShowDialog())
             {
-                handler.SerializeToFile(sfd.FileName);
+                Utils.SerializeKmeans(sfd.FileName, handler);
+            }
+        }
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "File XML|*.xml|Tutti i file|*.*";
+            ofd.DefaultExt = ".xml";
+            if ((bool)ofd.ShowDialog())
+            {
+                handler = Utils.DeserializeKmeans(ofd.FileName);
+                this.DataContext = handler;
+                dtgPoints.SetBinding(DataGrid.ItemsSourceProperty, DETAILS_RUNNING);
+                handler.DrawOnCanvas(cnvDrawArea, true);
             }
         }
     }
