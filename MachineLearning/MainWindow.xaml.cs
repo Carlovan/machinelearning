@@ -32,5 +32,14 @@ namespace MachineLearning
             this.Close();
             tmp.Show();
         }
+
+        private void btnStartKmeansMulti_Click(object sender, RoutedEventArgs e)
+        {
+            uint countD = 3;
+            var tmp = new WindowKmeansMulti(countD);
+            tmp.ShowActivated = true;
+            this.Close();
+            tmp.Show();
+        }
     }
 }

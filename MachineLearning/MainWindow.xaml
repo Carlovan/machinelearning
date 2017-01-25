@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Machine learning" Height="350" Width="525">
     <Grid>
-        <Button Name="btnStart2D" Content="Start Graphic (2D)" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStart2D_Click"/>
+        <StackPanel VerticalAlignment="Center">
+            <Button Name="btnStart2D" Content="Start Graphic Kmeans (2D)" Padding="15" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStart2D_Click"/>
+            <Button Name="btnStartKmeansMulti" Content="Start Kmeans Multidimensional" Margin="10" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStartKmeansMulti_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

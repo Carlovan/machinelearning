@@ -6,13 +6,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System;
+using System.Collections.ObjectModel;
 
 namespace MachineLearning
 {
     class KMeansHandler
     {
-        public List<DataPoint> Points { get; set; } = new List<DataPoint>();
-        public List<Centroid> Centroids { get; set; } = new List<Centroid>();
+        public ObservableCollection<DataPoint> Points { get; set; } = new ObservableCollection<DataPoint>();
+        public ObservableCollection<Centroid> Centroids { get; set; } = new ObservableCollection<Centroid>();
 
         public void InitializeCentroids(uint count)
         {
@@ -40,18 +41,30 @@ namespace MachineLearning
             }
         }
 
-        public void MoveCentroids()
+        public bool MoveCentroids()
         {
+            bool somethingMoved = false;
             foreach (Centroid c in Centroids)
             {
                 if (c.Points.Count > 0)
                 {
                     for(int i = 0; i < c.Dimensions.Count; i++)
                     {
-                        c.Dimensions[i] = c.Points.Average(p => p.Dimensions[i]);
+                        double tmp = c.Points.Average(p => p.Dimensions[i]);
+                        if (Math.Abs(tmp - c.Dimensions[i]) >= 1)
+                            somethingMoved = true;
+                        c.Dimensions[i] = tmp;
                     }
                 }
+                else
+                {
+                    Random rand = new Random();
+                    DataPoint rPoint = Points[rand.Next(Points.Count)];
+                    c.Dimensions = new ObservableCollection<double>(rPoint.Dimensions);
+                    somethingMoved = true;
+                }
             }
+            return somethingMoved;
         }
 
         public void DrawOnCanvas(Canvas canvas, bool running)

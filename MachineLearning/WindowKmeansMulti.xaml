@@ -1,0 +1,45 @@
+﻿<Window x:Class="MachineLearning.WindowKmeansMulti"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MachineLearning"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="Multi Dimensions" Height="800" Width="1000" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+            <Button Name="btnStart" Content="Run" Padding="20, 15" VerticalAlignment="Center"  Margin="20" Click="btnRun_Click"/>
+            <Button Name="btnClear" Content="Clear all" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClear_Click"/>
+            <Button Name="btnClearCentroids" Content="Clear centroids" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClearCentroids_Click"/>
+            <GroupBox Header="Num Centroidi">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="{Binding ElementName=sldNumCentroids, Path=Value}" HorizontalAlignment="Stretch" Margin="10" />
+                    <Slider Name="sldNumCentroids" Minimum="1" Maximum="10" IsSnapToTickEnabled="True" Value="3"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Centroids" Grid.Column="0" Margin="5">
+                <DataGrid Name="dtgCentroids" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding Centroids}" IsReadOnly="True">
+                </DataGrid>
+            </GroupBox>
+
+            <GroupBox Header="Points" Grid.Column="1" Margin="5">
+                <DataGrid Name="dtgPoints" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding Points}" AddingNewItem="dtgPoints_InitializingNewItem">
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

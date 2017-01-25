@@ -10,13 +10,17 @@ using System.Windows;
 
 namespace MachineLearning
 {
-    abstract class UIPoint
+    class UIPoint
     {
         public ObservableCollection<double> Dimensions { get; set; }
 
         public UIPoint(int dimensions=2)
         {
-            Dimensions = new ObservableCollection<double>(new List<double>(dimensions));
+            Dimensions = new ObservableCollection<double>();
+            for(int i = 0; i < dimensions; i++)
+            {
+                Dimensions.Add(0);
+            }
         }
 
         public UIPoint(UIPoint other)

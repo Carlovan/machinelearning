@@ -7,25 +7,27 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.ComponentModel;
-using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MachineLearning
 {
     /// <summary>
-    /// Interaction logic for WindowGraphic2D.xaml
+    /// Interaction logic for WindowKmeansMulti.xaml
     /// </summary>
-    public partial class WindowGraphic2D : Window
+    public partial class WindowKmeansMulti : Window
     {
-        const int STEP_DELAY = 2000;
         Binding DETAILS_RUNNING = new Binding() { ElementName = "dtgCentroids", Path = new PropertyPath("SelectedItem.Points") };
         Binding DETAILS_INSERTING = new Binding("Points");
 
         KMeansHandler handler;
-        DispatcherTimer timer = new DispatcherTimer();
 
-        public WindowGraphic2D()
+        readonly uint dimensionsCount;
+
+        public WindowKmeansMulti(uint dimensions)
         {
             InitializeComponent();
+            dimensionsCount = dimensions;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -33,38 +35,27 @@ namespace MachineLearning
             handler = new KMeansHandler();
             this.DataContext = handler;
 
-            timer.Interval = new TimeSpan((long)sldAnimSpeed.Value);
-            timer.Tick += Timer_Tick;
-            sldAnimSpeed.ValueChanged += sldAnimSpeed_ValueChanged;
-        }
-
-        private void sldAnimSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            timer.Interval = new TimeSpan((long)e.NewValue);
-        }
-
-        private void cnvDrawArea_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (!timer.IsEnabled)
+            for (int i = 0; i < dimensionsCount; i++)
             {
-                Point pos = e.GetPosition((Canvas)sender);
-                DataPoint tmp = new DataPoint(pos);
-                tmp.Dimensions.CollectionChanged += (object s, NotifyCollectionChangedEventArgs events) => { handler.DrawOnCanvas(cnvDrawArea, false); };
-                handler.Points.Add(tmp);
-                handler.DrawOnCanvas((Canvas)sender, false);
-                dtgCentroids.Items.Refresh();
+                var col1 = new DataGridTextColumn() { Header = $"D{i + 1}", Binding = new Binding($"Dimensions[{i}]"), Width = new DataGridLength(1, DataGridLengthUnitType.Star) };
+                var col2 = new DataGridTextColumn() { Header = $"D{i + 1}", Binding = new Binding($"Dimensions[{i}]"), Width = new DataGridLength(1, DataGridLengthUnitType.Star) };
+                dtgCentroids.Columns.Add(col1);
+                dtgPoints.Columns.Add(col2);
             }
+        }
+
+        private void dtgPoints_InitializingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            e.NewItem = new DataPoint((int)dimensionsCount);
         }
 
         private void btnRun_Click(object sender, RoutedEventArgs e)
         {
-            if (timer.IsEnabled)
+            if (handler.Points.Count > 0)
             {
-                StopAnimation();
-            }
-            else if(handler.Points.Count > 0)
-            {
-                StartAnimation();
+                StartAlgorithm();
+                while (!ExecuteStep()) ;
+                StopAlgorithm();
             }
             else
             {
@@ -72,28 +63,18 @@ namespace MachineLearning
             }
         }
 
-        private void StartAnimation()
+        private void StartAlgorithm()
         {
             EnableButtons(false);
             dtgPoints.SetBinding(DataGrid.ItemsSourceProperty, DETAILS_RUNNING);
             handler.InitializeCentroids((uint)GetCentroidsCount());
             dtgCentroids.Items.Refresh();
-            btnStart.Content = "Stop";
-            handler.DrawOnCanvas(cnvDrawArea, true);
-            timer.Start();
+            dtgPoints.CanUserAddRows = false;
         }
 
-        private void StopAnimation()
+        private void StopAlgorithm()
         {
-            btnStart.Content = "Run";
-            timer.Stop();
             EnableButtons(true);
-        }
-
-        private void Timer_Tick(object sender, System.EventArgs e)
-        {
-            if (!ExecuteStep())
-                StopAnimation();
         }
 
         private void EnableButtons(bool enabled)
@@ -108,7 +89,6 @@ namespace MachineLearning
             bool val;
             handler.AssignPoints();
             val = handler.MoveCentroids();
-            handler.DrawOnCanvas(cnvDrawArea, true);
             return val;
         }
 
@@ -117,7 +97,7 @@ namespace MachineLearning
             handler.Points.Clear();
             handler.Centroids.Clear();
             SetInserting();
-            handler.DrawOnCanvas(cnvDrawArea, false);
+
         }
 
         private int GetCentroidsCount()
@@ -129,22 +109,13 @@ namespace MachineLearning
         {
             handler.Centroids.Clear();
             SetInserting();
-            handler.DrawOnCanvas(cnvDrawArea, false);
-        }
-
-        private void dtgPoints_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-            e.NewItem = new DataPoint();
         }
 
         private void SetInserting()
         {
+            dtgPoints.CanUserAddRows = true;
             dtgPoints.SetBinding(DataGrid.ItemsSourceProperty, DETAILS_INSERTING);
-        }
-
-        private void dtgPoints_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            handler.DrawOnCanvas(cnvDrawArea, false);
         }
     }
 }
+

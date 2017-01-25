@@ -4,7 +4,9 @@ namespace MachineLearning
 {
     class DataPoint : UIPoint
     {
-        public DataPoint(int dimensions = 2) : base(dimensions) { }
+        public DataPoint() : base(2) { }
+
+        public DataPoint(int dimensions) : base(dimensions) { }
 
         public DataPoint(UIPoint other) : base(other) { }
 

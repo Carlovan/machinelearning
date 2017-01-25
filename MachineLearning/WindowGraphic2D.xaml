@@ -15,12 +15,16 @@
 
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <Button Name="btnStart" Content="Run" Padding="20, 15" VerticalAlignment="Center"  Margin="20" Click="btnRun_Click"/>
-            <Button Name="btnClear" Content="Clear" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClear_Click"/>
+            <Button Name="btnClear" Content="Clear all" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClear_Click"/>
+            <Button Name="btnClearCentroids" Content="Clear centroids" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClearCentroids_Click"/>
             <GroupBox Header="Num Centroidi">
-                <StackPanel Orientation="Horizontal">
-                    <Slider Name="sldNumCentroids" Minimum="1" Maximum="10" IsSnapToTickEnabled="True" />
-                    <TextBox Text="{Binding ElementName=sldNumCentroids, Path=Value}"/>
+                <StackPanel Orientation="Vertical">
+                    <Label Content="{Binding ElementName=sldNumCentroids, Path=Value}" HorizontalAlignment="Stretch" Margin="10" />
+                    <Slider Name="sldNumCentroids" Minimum="1" Maximum="10" IsSnapToTickEnabled="True" Value="3"/>
                 </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Animation speed">
+                <Slider Name="sldAnimSpeed" Minimum="5e4" Maximum="2e7" IsSnapToTickEnabled="False" IsDirectionReversed="True" VerticalAlignment="Center" Value="5e5"/>
             </GroupBox>
         </StackPanel>
 
@@ -36,14 +40,14 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <DataGrid Name="dtgCentroids" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="0" ItemsSource="{Binding Centroids}">
+                <DataGrid Name="dtgCentroids" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="0" ItemsSource="{Binding Centroids}" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="X" Binding="{Binding Dimensions[0]}" Width="*" />
                         <DataGridTextColumn Header="Y" Binding="{Binding Dimensions[1]}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <DataGrid Name="dtgPoints" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ItemsSource="{Binding ElementName=dtgCentroids, Path=SelectedItem.Points}">
+                <DataGrid Name="dtgPoints" AutoGenerateColumns="False" SelectionMode="Single" Grid.Row="1" ItemsSource="{Binding Points}" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="X" Binding="{Binding Dimensions[0]}" Width="*" />
                         <DataGridTextColumn Header="Y" Binding="{Binding Dimensions[1]}" Width="*" />

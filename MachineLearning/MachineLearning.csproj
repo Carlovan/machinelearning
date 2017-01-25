@@ -63,6 +63,9 @@
     <Compile Include="WindowGraphic2D.xaml.cs">
       <DependentUpon>WindowGraphic2D.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowKmeansMulti.xaml.cs">
+      <DependentUpon>WindowKmeansMulti.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,6 +79,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="WindowGraphic2D.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowKmeansMulti.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
