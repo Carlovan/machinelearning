@@ -19,6 +19,8 @@ namespace MachineLearning
     /// </summary>
     public partial class WindowInsertKnn : Window
     {
+        List<TextBox> txtboxes = new List<TextBox>();
+
         readonly uint dimensionCount;
         public DataPoint Result { get; set; }
 
@@ -34,9 +36,9 @@ namespace MachineLearning
             for (int i = 0; i < dimensionCount; i++)
             {
                 TextBox txtTmp = new TextBox();
-                txtTmp.SetBinding(TextBox.TextProperty, new Binding($"Dimensions[{i}]"));
                 txtTmp.Width = 100;
                 txtTmp.Height = 20;
+                txtboxes.Add(txtTmp);
 
                 Label lblTmp = new Label() { Content = $"D{i+1}", HorizontalAlignment = HorizontalAlignment.Left};
 
@@ -50,14 +52,22 @@ namespace MachineLearning
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            for(int i = 0; i < txtboxes.Count; i++)
+            {
+                int n;
+                if(!int.TryParse(txtboxes[i].Text, out n))
+                {
+                    MessageBox.Show("Invalid values");
+                    return;
+                }
+                Result.Dimensions[i] = n;
+            }
             this.DialogResult = true;
-            this.Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
-            this.Close();
         }
     }
 }

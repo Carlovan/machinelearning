@@ -155,7 +155,7 @@ namespace MachineLearning
             sfd.DefaultExt = ".xml";
             if ((bool)sfd.ShowDialog())
             {
-                Utils.SerializeKmeans(sfd.FileName, handler);
+                Utils.SerializeToFile(sfd.FileName, handler);
             }
         }
 
@@ -166,7 +166,7 @@ namespace MachineLearning
             ofd.DefaultExt = ".xml";
             if ((bool)ofd.ShowDialog())
             {
-                handler = Utils.DeserializeKmeans(ofd.FileName);
+                handler = Utils.DeserializeFromFile<KMeansHandler>(ofd.FileName);
                 this.DataContext = handler;
                 dtgPoints.SetBinding(DataGrid.ItemsSourceProperty, DETAILS_RUNNING);
                 handler.DrawOnCanvas(cnvDrawArea, true);

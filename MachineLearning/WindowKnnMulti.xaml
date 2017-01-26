@@ -24,15 +24,24 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="Centroids" Grid.Column="0" Margin="5">
-                <DataGrid Name="dtgCentroids" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding Centroids}" AddingNewItem="dtgCentroids_AddingNewItem">
+                <DataGrid Name="dtgCentroids" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding Groups}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tag" Binding="{Binding Tag}" Width="*" />
+                    </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
 
-            <GroupBox Header="Points" Grid.Column="1" Margin="5">
-                <DataGrid Name="dtgPoints" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ElementName=dtgCentroids, Path=SelectedItem.Points}" AddingNewItem="dtgPoints_InitializingNewItem">
+            <GroupBox Header="DataSet" Grid.Column="1" Margin="5">
+                <DataGrid Name="dtgDataset" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ElementName=dtgCentroids, Path=SelectedItem.DataSet}" AddingNewItem="dtgPoints_InitializingNewItem">
+                </DataGrid>
+            </GroupBox>
+
+            <GroupBox Header="Points" Grid.Column="2" Margin="5">
+                <DataGrid Name="dtgPoints" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ElementName=dtgCentroids, Path=SelectedItem.Points}" IsReadOnly="True">
                 </DataGrid>
             </GroupBox>
         </Grid>

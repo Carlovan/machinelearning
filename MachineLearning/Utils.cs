@@ -51,22 +51,22 @@ namespace MachineLearning
             canvas.Children.Add(rect);
         }
 
-        static public KMeansHandler DeserializeKmeans(string filename)
+        static public T DeserializeFromFile<T>(string filename)
         {
             using (FileStream openStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.None))
             using (XmlReader reader = XmlReader.Create(openStream))
             {
-                DataContractSerializer dcser = new DataContractSerializer(typeof(KMeansHandler));
-                return (KMeansHandler)dcser.ReadObject(reader);
+                DataContractSerializer dcser = new DataContractSerializer(typeof(T));
+                return (T)dcser.ReadObject(reader);
             }
         }
 
-        static public void SerializeKmeans(string filename, KMeansHandler handler)
+        static public void SerializeToFile<T>(string filename, T handler)
         {
             using (FileStream saveStream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None))
             using (XmlWriter writer = XmlWriter.Create(saveStream, new XmlWriterSettings() { Indent = true }))
             {
-                DataContractSerializer dcser = new DataContractSerializer(typeof(KMeansHandler));
+                DataContractSerializer dcser = new DataContractSerializer(typeof(T));
                 dcser.WriteObject(writer, handler);
             }
         }

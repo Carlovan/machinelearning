@@ -38,7 +38,7 @@ namespace MachineLearning
             {
                 var col1 = new DataGridTextColumn() { Header = $"D{i + 1}", Binding = new Binding($"Dimensions[{i}]"), Width = new DataGridLength(1, DataGridLengthUnitType.Star) };
                 var col2 = new DataGridTextColumn() { Header = $"D{i + 1}", Binding = new Binding($"Dimensions[{i}]"), Width = new DataGridLength(1, DataGridLengthUnitType.Star) };
-                dtgCentroids.Columns.Add(col1);
+                dtgDataset.Columns.Add(col1);
                 dtgPoints.Columns.Add(col2);
             }
         }
@@ -48,14 +48,9 @@ namespace MachineLearning
             e.NewItem = new DataPoint((int)dimensionsCount);
         }
 
-        private void dtgCentroids_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-            e.NewItem = new Centroid((int)dimensionsCount);
-        }
-
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            handler.Centroids.Clear();
+            handler.Groups.Clear();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -65,7 +60,7 @@ namespace MachineLearning
             sfd.DefaultExt = ".xml";
             if ((bool)sfd.ShowDialog())
             {
-                //Utils.SerializeKmeans(sfd.FileName, handler);
+                Utils.SerializeToFile(sfd.FileName, handler);
             }
         }
 
@@ -76,7 +71,7 @@ namespace MachineLearning
             ofd.DefaultExt = ".xml";
             if ((bool)ofd.ShowDialog())
             {
-                //handler = Utils.DeserializeKmeans(ofd.FileName);
+                handler = Utils.DeserializeFromFile<KnnHandler>(ofd.FileName);
                 this.DataContext = handler;
                 dtgPoints.CanUserAddRows = false;
             }
@@ -84,7 +79,7 @@ namespace MachineLearning
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
-            if (handler.Centroids.Select(x => x.Points.Count()).Sum() == 0)
+            if (handler.Groups.Select(x => x.DataSet.Count()).Sum() == 0)
             {
                 MessageBox.Show("You must insert some points first!");
             }
