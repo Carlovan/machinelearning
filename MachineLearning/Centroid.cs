@@ -8,7 +8,8 @@ namespace MachineLearning
     [DataContract(Name = "Centroid")]
     class Centroid : UIPoint
     {
-        public Centroid(int dimensions = 2) : base(dimensions) { }
+        public Centroid() : base(2) { }
+        public Centroid(int dimensions) : base(dimensions) { }
 
         public Centroid(UIPoint other) : base(other) { }
 

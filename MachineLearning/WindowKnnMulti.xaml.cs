@@ -10,6 +10,7 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MachineLearning
 {
@@ -83,10 +84,19 @@ namespace MachineLearning
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
-            var tmp = new WindowInsertKnn(dimensionsCount);
-            if ((bool)tmp.ShowDialog())
+            if (handler.Centroids.Select(x => x.Points.Count()).Sum() == 0)
             {
-                handler.InsertPoint(tmp.Result);
+                MessageBox.Show("You must insert some points first!");
+            }
+            else
+            {
+                var tmp = new WindowInsertKnn(dimensionsCount);
+                if ((bool)tmp.ShowDialog())
+                {
+                    dtgCentroids.SelectedItem = handler.InsertPoint(tmp.Result);
+                    dtgPoints.SelectedItem = tmp.Result;
+                    dtgPoints.Items.Refresh();
+                }
             }
         }
     }

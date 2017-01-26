@@ -33,11 +33,18 @@ namespace MachineLearning
         {
             for (int i = 0; i < dimensionCount; i++)
             {
-                TextBox tmp = new TextBox();
-                tmp.SetBinding(TextBox.TextProperty, new Binding($"Dimensions[{i}]"));
-                tmp.Width = 100;
-                tmp.Height = 20;
-                skpContainer.Children.Add(tmp);
+                TextBox txtTmp = new TextBox();
+                txtTmp.SetBinding(TextBox.TextProperty, new Binding($"Dimensions[{i}]"));
+                txtTmp.Width = 100;
+                txtTmp.Height = 20;
+
+                Label lblTmp = new Label() { Content = $"D{i+1}", HorizontalAlignment = HorizontalAlignment.Left};
+
+                StackPanel skpTmp = new StackPanel() { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center };
+                skpTmp.Children.Add(lblTmp);
+                skpTmp.Children.Add(txtTmp);
+
+                skpContainer.Children.Add(skpTmp);
             }
         }
 

@@ -12,7 +12,7 @@ using System.Runtime.Serialization;
 namespace MachineLearning
 {
     [DataContract]
-    class UIPoint
+    public class UIPoint
     {
         [DataMember(Name = "Dimensions")]
         public ObservableCollection<double> Dimensions { get; set; }

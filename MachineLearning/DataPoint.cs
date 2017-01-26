@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace MachineLearning
 {
     [DataContract(Name = "DataPoint")]
-    class DataPoint : UIPoint
+    public class DataPoint : UIPoint
     {
         public DataPoint() : base(2) { }
 
