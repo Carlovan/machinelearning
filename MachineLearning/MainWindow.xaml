@@ -9,8 +9,16 @@
     <Grid>
         <StackPanel VerticalAlignment="Center">
             <Button Name="btnStart2D" Content="Start Graphic Kmeans (2D)" Padding="15" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStart2D_Click"/>
-            <Button Name="btnStartKmeansMulti" Content="Start Kmeans Multidimensional" Margin="10" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStartKmeansMulti_Click"/>
-            <Button Name="btnStartKnnMulti" Content="Start Knn Multidimensional" Margin="10" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStartKnnMulti_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="# Dims: " VerticalAlignment="Center"/>
+                <TextBox Name="txtKmeansDimensions" VerticalAlignment="Center" Height="25" Width="100" />
+                <Button Name="btnStartKmeansMulti" Content="Start Kmeans Multidimensional" Margin="10" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStartKmeansMulti_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="# Dims: " VerticalAlignment="Center"/>
+                <TextBox Name="txtKnnDimensions" VerticalAlignment="Center" Height="25" Width="100" />
+                <Button Name="btnStartKnnMulti" Content="Start Knn Multidimensional" Margin="10" Padding="15" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnStartKnnMulti_Click"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

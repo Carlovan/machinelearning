@@ -21,14 +21,8 @@ namespace MachineLearning
     {
         [DataMember(Name = "Groups")]
         public ObservableCollection<KnnGroup> Groups { get; set; } = new ObservableCollection<KnnGroup>();
-        readonly int K;
 
-        public KnnHandler(int _k)
-        {
-            K = _k;
-        }
-
-        public KnnGroup InsertPoint(DataPoint point)
+        public KnnGroup InsertPoint(DataPoint point, uint K)
         {
             var tmp = new List<KnnHelper>();
             foreach (KnnGroup c in Groups)

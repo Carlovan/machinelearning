@@ -23,6 +23,8 @@ namespace MachineLearning
 
         readonly uint dimensionsCount;
 
+        bool flagMsgBox = true;
+
         public WindowKnnMulti(uint dimensions)
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace MachineLearning
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            handler = new KnnHandler(5);
+            handler = new KnnHandler();
             this.DataContext = handler;
 
             for (int i = 0; i < dimensionsCount; i++)
@@ -88,11 +90,27 @@ namespace MachineLearning
                 var tmp = new WindowInsertKnn(dimensionsCount);
                 if ((bool)tmp.ShowDialog())
                 {
-                    dtgCentroids.SelectedItem = handler.InsertPoint(tmp.Result);
+                    dtgCentroids.SelectedItem = handler.InsertPoint(tmp.Result, uint.Parse(txtKValue.Text));
                     dtgPoints.SelectedItem = tmp.Result;
                     dtgPoints.Items.Refresh();
                 }
             }
+        }
+
+        private void txtKValue_LostFocus(object sender, RoutedEventArgs e)
+        {
+            uint trash;
+            if(flagMsgBox && !uint.TryParse(txtKValue.Text, out trash))
+            {
+                txtKValue.Focus();
+                //MessageBox.Show("K Value error!");
+                flagMsgBox = false;
+            }
+        }
+
+        private void txtKValue_GotFocus(object sender, RoutedEventArgs e)
+        {
+            flagMsgBox = true;
         }
     }
 }

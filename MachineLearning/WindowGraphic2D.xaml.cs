@@ -102,6 +102,8 @@ namespace MachineLearning
             btnClear.IsEnabled = enabled;
             btnClearCentroids.IsEnabled = enabled;
             sldNumCentroids.IsEnabled = enabled;
+            btnLoad.IsEnabled = enabled;
+            btnSave.IsEnabled = enabled;
         }
 
         private bool ExecuteStep()

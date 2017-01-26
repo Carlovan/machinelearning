@@ -18,6 +18,9 @@
             <Button Name="btnClear" Content="Clear all" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnClear_Click"/>
             <Button Name="btnSave" Content="Save" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnSave_Click"/>
             <Button Name="btnLoad" Content="Load" Padding="20, 15" VerticalAlignment="Center" Margin="20" Click="btnLoad_Click"/>
+            <GroupBox Header="K Value">
+                <TextBox Name="txtKValue" VerticalAlignment="Center" Height="25" Width="100" Text="5" LostFocus="txtKValue_LostFocus" GotFocus="txtKValue_GotFocus"/>
+            </GroupBox>
         </StackPanel>
 
         <Grid Grid.Column="0" Grid.Row="1">

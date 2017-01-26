@@ -35,7 +35,12 @@ namespace MachineLearning
 
         private void btnStartKmeansMulti_Click(object sender, RoutedEventArgs e)
         {
-            uint countD = 3;
+            uint countD;
+            if (!uint.TryParse(txtKmeansDimensions.Text, out countD))
+            {
+                MessageBox.Show("Invalid dimensions value");
+                return;
+            }
             var tmp = new WindowKmeansMulti(countD);
             tmp.ShowActivated = true;
             this.Close();
@@ -44,7 +49,12 @@ namespace MachineLearning
 
         private void btnStartKnnMulti_Click(object sender, RoutedEventArgs e)
         {
-            uint countD = 3;
+            uint countD;
+            if(!uint.TryParse(txtKnnDimensions.Text, out countD))
+            {
+                MessageBox.Show("Invalid dimensions value");
+                return;
+            }
             var tmp = new WindowKnnMulti(countD);
             tmp.ShowActivated = true;
             this.Close();
